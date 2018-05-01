@@ -57,12 +57,12 @@
   </v-layout> 
 
 
-
+<!-- Modal -->
     <v-dialog v-model="dialog" max-width="600px">
       <v-card>
         <v-card-title class="headline">Post Status</v-card-title>
         <v-card-text>
-            <img :src="selectPost.full_picture" style="width: 200px">
+            <img :src="selectPost.full_picture" style="width: 200px" v-if="selectPost.type=='photo'">
             <v-container fluid>
                 <v-layout row wrap>
                 <v-flex xs12 sm6>
@@ -149,7 +149,7 @@ export default {
             tokens = JSON.parse(tokens);
             let ran = Math.floor(Math.random() * tokens.length);  
             let token = tokens[ran].access_token;
-            let query = this.page+`?fields=posts.limit(200){full_picture,message,link,type,reactions.limit(1).summary(true)}&access_token=`+token;
+            let query = this.page+`?fields=posts.limit(200){full_picture,message,link,source,type,reactions.limit(1).summary(true)}&access_token=`+token;
             axios.get(FB_HOST+query)
             
             .then(res => {
@@ -170,7 +170,7 @@ export default {
             let t = new Date(this.time);
             let tz = t.getTime()/1000;
             let params = {
-                caption : this.contentPost,
+                caption : this.contentPost ? this.contentPost + "\nJoin our group ➡ https://goo.gl/PbLv9P" : "Join our group ➡ https://goo.gl/PbLv9P",
                 url : this.selectPost.full_picture,
                 scheduled_publish_time : tz,
                 published : false,
