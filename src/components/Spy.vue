@@ -170,7 +170,7 @@ export default {
             let t = new Date(this.time);
             let tz = t.getTime()/1000;
             let params = {
-                caption : this.contentPost ? this.contentPost + "\nJoin our group ➡ https://goo.gl/PbLv9P" : "Join our group ➡ https://goo.gl/PbLv9P",
+                caption : this.contentPost,
                 url : this.selectPost.full_picture,
                 scheduled_publish_time : tz,
                 published : false,
